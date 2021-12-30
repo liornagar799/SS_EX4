@@ -4,7 +4,6 @@
 #include <string.h>
 
 
-
 typedef struct node_ {
     char id;
     int number_Of_neighbors;
@@ -21,4 +20,18 @@ typedef struct graph_ {
 char* cut(char str[], int t, int i);
 Graph *init_graph();
 void free_graph(struct graph_ *graph);
-
+Node *create_node(Graph *graph, char label);
+void add_node(Graph *graph, Node *node);
+void add_edge(Node *a, Node *b, double weight);
+void delete_edge(Graph *graph, Node *a, Node *b);
+void delete_node(Graph *graph, Node *node);
+int getNodeIndex(Graph *graph, Node *node);
+int sameNodes(Node *id1, Node *id2);
+int Dijsktra(Graph *graph, Node *start, Node *end);
+Graph * A(char *ans, int len );
+void B(char ans [],Graph *graph);
+void D(char ans [],Graph *graph);
+void S(char ans [],Graph *graph);
+void to_start(char *list, int len, Node *s);
+int tsp(Graph *graph, char list [], int len);
+void T(char ans [],Graph *graph);  
