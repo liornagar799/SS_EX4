@@ -7,13 +7,13 @@
 typedef struct node_ {
     char id;
     int number_Of_neighbors;
-    struct node_ **neighbors; /* list of pointers of adjacent nodes */
+    struct node_ **neighbors;
     double *weights;
 } Node;
 
 typedef struct graph_ {
     int number_Of_nodes;
-    struct node_ **nodes; /* list of pointers of nodes */
+    struct node_ **nodes; 
 } Graph;
 
 
