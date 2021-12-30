@@ -17,19 +17,6 @@ char* cut(char str[], int t, int i){
     return str_cnt;
 }
 
-typedef struct node_ {
-    char id;
-    int number_Of_neighbors;
-    struct node_ **neighbors; 
-    double *weights;
-} Node;
-
-typedef struct graph_ {
-    int number_Of_nodes;
-    struct node_ **nodes;
-} Graph;
-
-
 ///////////////////////////////////////////////////////////////////////////////
 
 
@@ -306,7 +293,7 @@ void S(char ans [],Graph *graph){
             dest=graph->nodes[i];
         }
     }
-    printf("Dijsktra shortest path: %d \n", Dijsktra(graph, src, dest));
+    printf("Dijsktra shortest path:%d\n", Dijsktra(graph, src, dest));
 }
 
 ////////////////////////////////////////////////////
