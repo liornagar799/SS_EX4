@@ -19,6 +19,19 @@ char* cut(char str[], int t, int i){
 
 ///////////////////////////////////////////////////////////////////////////////
 
+typedef struct node_ {
+    char id;
+    int number_Of_neighbors;
+    struct node_ **neighbors; /* list of pointers of adjacent nodes */
+    double *weights;
+} Node;
+
+typedef struct graph_ {
+    int number_Of_nodes;
+    struct node_ **nodes; /* list of pointers of nodes */
+} Graph;
+
+
 
 Graph *init_graph() {
     Graph *graph = (Graph *)malloc(sizeof(Graph));
