@@ -306,7 +306,7 @@ void S(char ans [],Graph *graph){
             dest=graph->nodes[i];
         }
     }
-    printf("Dijsktra shortest path: %d\n", Dijsktra(graph, src, dest));
+    printf("Dijsktra shortest path:%d\n", Dijsktra(graph, src, dest));
 }
 
 ////////////////////////////////////////////////////
@@ -396,7 +396,7 @@ int tsp(Graph *graph, char list [], int len){
 
 //////////////////////////////////////////////
 void T(char ans [],Graph *graph){
-    printf( "TSP shortest path: %d\n", tsp(graph,ans, strlen(ans)));
+    printf( "TSP shortest path: %d \n", tsp(graph,ans, strlen(ans)));
 }
 
 //////////////////////////////////////////////////////
