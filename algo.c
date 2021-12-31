@@ -4,8 +4,7 @@
 #include <string.h>
 
 
-char* cut(char str[], int t, int i){
-    char* str_cnt=(char*)malloc(t + 1);
+char* cut(char str[], int t, int i,char* str_cnt){
     int g=0;
     int k = i;
     int cnt=0;
@@ -43,6 +42,8 @@ Graph *init_graph() {
 void free_graph(struct graph_ *graph) {
     int i;
     for(i=0; i<graph->number_Of_nodes; i++) {
+        free(graph->nodes[i]->weights);
+        free(graph->nodes[i]->neighbors);
         free(graph->nodes[i]);
     }
     free(graph->nodes);
@@ -223,6 +224,7 @@ int Dijsktra(Graph *graph, Node *start, Node *end) {
     i = getNodeIndex(graph, end);
     int w = dist[i];
     return w;
+   
 }
 
 
@@ -405,7 +407,12 @@ int main(){
     gets(f);
     int len= strlen(f)+1;
     char nn[len];
-    strcpy(nn,cut(f , len, 0));
+    char* str_cnt=(char*)malloc(len + 1);
+     if(str_cnt==NULL){
+        exit(1);
+    }
+    strcpy(nn,cut(f , len, 0,str_cnt));
+    free(str_cnt);
     int r=0, b=0;
     while(b<len){
         if(nn[b]==' '){
@@ -424,7 +431,12 @@ int main(){
         k++;
     }
     char cnt[strlen(n)-1];
-    strcpy(cnt,cut(n , strlen(n)-1, 1));
+    char* strr_cnt=(char*)malloc(strlen(n)-1 + 1);
+     if(strr_cnt==NULL){
+        exit(1);
+    }
+    strcpy(cnt,cut(n , strlen(n)-1, 1,strr_cnt));
+    free(strr_cnt);
     int i=0;
     for (int j = 0; j < strlen(cnt); j++) {
         char c= cnt[j];
@@ -444,7 +456,12 @@ int main(){
     current[i]='\0';
     Graph *g=A(current, i);
     char ans[strlen(cnt)-i];
-    strcpy(ans,cut(cnt , (strlen(cnt)-i),i)) ;
+    char* str_cntt=(char*)malloc(strlen(cnt)-i + 1);
+     if(str_cntt==NULL){
+        exit(1);
+    }
+    strcpy(ans,cut(cnt , (strlen(cnt)-i),i,str_cntt)) ;
+    free(str_cntt);
     ans[strlen(cnt)-i]='\0';
     while (strlen(ans)!=0) {
         char first = ans[0];
@@ -458,8 +475,20 @@ int main(){
                     t++;
                 }
             }
-            B(cut(ans, t, 1), g);
-            strcpy(ans, cut(ans, (strlen(ans) - t - 1), t + 1));
+           
+            char* str_cn=(char*)malloc(t + 1);
+             if(str_cn==NULL){
+             exit(1);
+              }
+            B(cut(ans, t, 1,str_cn), g);
+            free(str_cn);
+            char* str_cnt=(char*)malloc((strlen(ans) - t - 1) + 1);
+             if(str_cnt==NULL){
+            exit(1);
+            }
+            strcpy(ans, cut(ans, (strlen(ans) - t - 1), t + 1,str_cnt));
+            free(str_cnt);
+          
         }
 
 
@@ -474,8 +503,19 @@ int main(){
                 }
             }
 
-            D(cut(ans, t, 1), g);
-            strcpy(ans, cut(ans, (strlen(ans) - t - 1), t + 1));
+            
+            char* str_cn=(char*)malloc(t + 1);
+            if(str_cn==NULL){
+                exit(1);
+            }
+            D(cut(ans, t, 1,str_cn), g);
+            free(str_cn);
+            char* str_cnt=(char*)malloc((strlen(ans) - t - 1) + 1);
+             if(str_cnt==NULL){
+                exit(1);
+            }
+            strcpy(ans, cut(ans, (strlen(ans) - t - 1), t + 1,str_cnt));
+            free(str_cnt);
         }
 
         if (first == 'A') {
@@ -488,8 +528,19 @@ int main(){
                     t++;
                 }
             }
-            g=A(cut(ans, t, 1), t);
-            strcpy(ans, cut(ans, (strlen(ans) - t - 1), t + 1));
+            char* str_cn=(char*)malloc(t + 1);
+             if(str_cn==NULL){
+                exit(1);
+            }
+            g=A(cut(ans, t, 1,str_cn), t);
+            // free(str_cn);
+            
+            char* str_cnt=(char*)malloc((strlen(ans) - t - 1) + 1);
+             if(str_cnt==NULL){
+                exit(1);
+            }
+            strcpy(ans, cut(ans, (strlen(ans) - t - 1), t + 1,str_cnt));
+            free(str_cnt);
         }
 
 
@@ -503,9 +554,19 @@ int main(){
                     t++;
                 }
             }
+            char* str_cn=(char*)malloc(t + 1);
+            if(str_cn==NULL){
+                exit(1);
+            }
+            S(cut(ans, t, 1,str_cn), g);
+            free(str_cn);
 
-            S(cut(ans, t, 1), g);
-            strcpy(ans, cut(ans, (strlen(ans) - t - 1), t + 1));
+            char* str_cnt=(char*)malloc((strlen(ans) - t - 1) + 1);
+             if(str_cnt==NULL){
+                exit(1);
+            }
+            strcpy(ans, cut(ans, (strlen(ans) - t - 1), t + 1,str_cnt));
+            free(str_cnt);
         }
 
 
@@ -519,17 +580,24 @@ int main(){
                     t++;
                 }
             }
-            T(cut(ans, t, 1), g);
-            strcpy(ans, cut(ans, (strlen(ans) - t - 1), t + 1));
+            char* str_cn=(char*)malloc(t + 1);
+             if(str_cn==NULL){
+                exit(1);
+            }
+            T(cut(ans, t, 1,str_cn), g);
+            free(str_cn);
+         char* str_cnt=(char*)malloc((strlen(ans) - t - 1) + 1);
+          if(str_cnt==NULL){
+                exit(1);
+            }
+            strcpy(ans, cut(ans, (strlen(ans) - t - 1), t + 1,str_cnt));
+            free(str_cnt);
         }
     }
 
 
-    free_graph(g);
-
-
-////////////////////////////////////////////
-
+free_graph(g);
+    
 
 return 0;
 }
