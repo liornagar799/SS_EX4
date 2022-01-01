@@ -59,6 +59,9 @@ Node *create_node(Graph *graph, char label) {
         }}
     Node *node;
     node = (Node *) malloc(sizeof(Node));
+    if(node==NULL){
+        exit(1);
+    }
     node->id = label;
     node->number_Of_neighbors = 0;
     node->neighbors = (Node **) malloc(node->number_Of_neighbors * sizeof(Node *));
@@ -260,6 +263,9 @@ Graph * A(char *ans, int len ){
 void B(char ans [],Graph *graph){
     Node *node;
     node = (Node *) malloc(sizeof(Node));
+    if(node==NULL){
+        exit(1);
+    }
     node->id = ans[0];
     node->number_Of_neighbors = 0;
     node->neighbors = (Node **) malloc(node->number_Of_neighbors * sizeof(Node *));
