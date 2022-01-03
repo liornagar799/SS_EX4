@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -73,6 +72,7 @@ Node *create_node(Graph *graph, char label) {
         exit(1);
     }
     return node;
+    
 }
 
 void add_node(Graph *graph, Node *node) {
@@ -141,7 +141,12 @@ void delete_node(Graph *graph, Node *node) {
         if (graph->nodes[i]->id != node->id) {
             graph->nodes[j] = graph->nodes[i];
             j++;
-        }}
+        }else{
+        free(graph->nodes[i]->neighbors);
+        free(graph->nodes[i]->weights);    
+        }
+        
+        }
     graph->nodes = (Node **) realloc(graph->nodes, (graph->number_Of_nodes - 1) * sizeof(Node *));
     if(graph->nodes==NULL){
         exit(1);
@@ -240,6 +245,7 @@ Graph * A(char *ans, int len ){
     while (i<len-1){
         if (ans[i]=='n'){
             i++;
+            
             Node *src = create_node(g,ans[i]);
             add_node(g,src);
             if (i>=len-2){
@@ -267,6 +273,13 @@ void B(char ans [],Graph *graph){
         exit(1);
     }
     node->id = ans[0];
+     for(int i=0; i<graph->number_Of_nodes; i++){
+        if(node->id == graph->nodes[i]->id){
+          free(graph->nodes[i]->neighbors);
+          free(graph->nodes[i]->weights);  
+
+        }
+    }
     node->number_Of_neighbors = 0;
     node->neighbors = (Node **) malloc(node->number_Of_neighbors * sizeof(Node *));
     if(node->neighbors==NULL){
@@ -297,6 +310,7 @@ void D(char ans [],Graph *graph){
         }
     }
     delete_node(graph,save);
+    free(save);
 }
 
 
@@ -315,6 +329,7 @@ void S(char ans [],Graph *graph){
         }
     }
     printf("Dijsktra shortest path: %d \n", Dijsktra(graph, src, dest));
+    
 }
 
 ////////////////////////////////////////////////////
@@ -391,6 +406,7 @@ int tsp(Graph *graph, char list [], int len){
                 z += Dijsktra(graph, save_id1, save_id2);
 
         }
+
         if(z>=1000){
             return -1;
         }
@@ -538,8 +554,10 @@ int main(){
              if(str_cn==NULL){
                 exit(1);
             }
+            free_graph(g);
             g=A(cut(ans, t, 1,str_cn), t);
-            // free(str_cn);
+            free(str_cn);
+            
             
             char* str_cnt=(char*)malloc((strlen(ans) - t - 1) + 1);
              if(str_cnt==NULL){
