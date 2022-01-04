@@ -78,7 +78,7 @@ Node *create_node(Graph *graph, char label) {
 void add_node(Graph *graph, Node *node) {
     for(int i=0; i<graph->number_Of_nodes; i++){
         if(node->id == graph->nodes[i]->id){
-            graph->nodes[i]=node;
+            // graph->nodes[i]=node;
             return;
         }
     }
@@ -276,8 +276,30 @@ void B(char ans [],Graph *graph){
      for(int i=0; i<graph->number_Of_nodes; i++){
         if(node->id == graph->nodes[i]->id){
           free(graph->nodes[i]->neighbors);
-          free(graph->nodes[i]->weights);  
-//            free(graph->nodes[i]);
+          free(graph->nodes[i]->weights);
+          graph->nodes[i]->number_Of_neighbors=0;
+          graph->nodes[i]->neighbors = (Node **) malloc(graph->nodes[i]->number_Of_neighbors * sizeof(Node *));
+            if(graph->nodes[i]->neighbors==NULL){
+                exit(1);
+            }
+            graph->nodes[i]->weights = (double *) malloc(graph->nodes[i]->number_Of_neighbors * sizeof(double));
+            if(graph->nodes[i]->weights==NULL){
+                exit(1);
+            }
+            Node *s;
+            for(int i=0; i<graph->number_Of_nodes; i++){
+            if(node->id == graph->nodes[i]->id){
+                s= graph->nodes[i];}}
+                free(node);
+                while(ans[i]!='\0'){
+                Node *dest = create_node(graph,ans[i]);
+                add_node(graph,dest);
+                i++;
+                add_edge(s,dest, ((ans[i])-'0'));
+                i++;
+            }
+            return;
+            
         }
     }
     node->number_Of_neighbors = 0;
