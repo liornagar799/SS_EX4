@@ -277,7 +277,7 @@ void B(char ans [],Graph *graph){
         if(node->id == graph->nodes[i]->id){
           free(graph->nodes[i]->neighbors);
           free(graph->nodes[i]->weights);  
-
+           free(graph->nodes[i]);
         }
     }
     node->number_Of_neighbors = 0;
